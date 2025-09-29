@@ -24,7 +24,7 @@ interface AnimatedBackgroundProps {
   /**
    * Dithering shape (default: "wave")
    */
-  shape?: "wave" | "circle" | "square";
+  shape?: "wave" | "simplex" | "warp" | "dots" | "ripple" | "swirl" | "sphere";
   /**
    * Dithering type/pattern (default: "4x4")
    */

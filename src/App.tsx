@@ -8,7 +8,7 @@ function App() {
         backgroundColor="#121212"
         colorFront="#1a1d57"
         speed={0.3}
-        shape="circle"
+        shape="warp"
         type="4x4"
       ></AnimatedBackground>
     </div>
