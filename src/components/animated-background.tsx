@@ -75,6 +75,10 @@ export function AnimatedBackground({
             backgroundColor,
             height: "100vh",
             width: "100vw",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: -1,
           }}
         />
       </div>

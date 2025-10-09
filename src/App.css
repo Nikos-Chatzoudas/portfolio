@@ -1,4 +1,8 @@
 :root {
-  background-color: #121212;
+  background-color: black;
   color: white;
+}
+.model-fullscreen iframe {
+  width: 355px;
+  height: 264px;
 }
