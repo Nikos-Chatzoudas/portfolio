@@ -7,4 +7,5 @@
   height: 873px;
   transform: scale(0.3);
   border: none;
+  user-select: none;
 }
