@@ -6,3 +6,7 @@
   width: 355px;
   height: 264px;
 }
+
+iframe {
+  border: none;
+}
