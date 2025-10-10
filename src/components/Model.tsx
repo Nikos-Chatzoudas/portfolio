@@ -21,7 +21,7 @@ export default function Model() {
           ]}
         >
           <iframe
-            src="https://www.os.chatzoudas.dev"
+            src="https://os.chatzoudas.dev"
 
           />
         </Html>
