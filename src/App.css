@@ -3,10 +3,8 @@
   color: white;
 }
 .model-fullscreen iframe {
-  width: 355px;
-  height: 264px;
-}
-
-iframe {
+  width: 1177px;
+  height: 873px;
+  transform: scale(0.3);
   border: none;
 }
