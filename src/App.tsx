@@ -4,8 +4,16 @@ import { AnimatedBackground } from "./components/animated-background";
 import { Canvas } from '@react-three/fiber';
 import Model from "./components/Model";
 
+import Controller from "./components/controller";
+import { useCallback, useState } from "react";
+
 
 function App() {
+  const [resetCamera, setResetCamera] = useState<(() => void)>(() => () => { });
+
+  const handleCameraReset = useCallback((handler: () => void) => {
+    setResetCamera(() => handler);
+  }, []);
   return (
     <div>
       <AnimatedBackground
@@ -17,9 +25,11 @@ function App() {
       >
         <div style={{ width: "100vw", height: "100vh" }}>
           <Canvas camera={{ position: [0, 0, 5], fov: 45 }} >
-            <Model />
+            <Model onCameraReset={handleCameraReset} />
           </Canvas>
+
         </div>
+        <Controller onReset={resetCamera} />
       </AnimatedBackground>
     </div>
   );

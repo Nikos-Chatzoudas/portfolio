@@ -2,9 +2,85 @@
   background-color: black;
   color: white;
 }
+:root {
+  --clr1: #1e40af;
+  --clr2: #3858c0;
+}
 .model-fullscreen iframe {
   width: 1067px;
   height: 789px;
   border: none;
   user-select: none;
+}
+.mp3player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.mp3-preview {
+  display: flex;
+  flex-direction: row;
+  padding: 6px;
+  gap: 2px;
+  height: 40px;
+  background-color: black;
+  color: var(--clr2);
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 1000;
+  text-overflow: ellipsis;
+}
+.info {
+  width: 100%;
+  display: flex;
+  height: min-content;
+  flex-direction: column;
+}
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 0;
+}
+
+.bar {
+  width: 5px;
+  background: var(--clr2);
+  transition: height 0.2s linear;
+}
+.controller {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.icon {
+  color: black;
+}
+.win98-button {
+  background: #c0c0c0;
+  border: none;
+  display: flex;
+  justify-content: center;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: black;
+  font-family: "MS Sans Serif", Arial, sans-serif;
+  cursor: pointer;
+  position: relative;
+
+  box-shadow: inset -1px -1px 0 #000000, inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+}
+
+.win98-button:active {
+  box-shadow: inset 1px 1px 0 #000000, inset -1px -1px 0 #ffffff,
+    inset 2px 2px 0 #808080, inset -2px -2px 0 #dfdfdf;
+  padding: 5px 11px 3px 13px;
+}
+
+.win98-button:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
 }
