@@ -43,7 +43,7 @@ export default function Model() {
           ]}
         >
           <iframe
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=dmq9EAcliiJYKKwp"
+            src="https://os.chatzoudas.dev"
             style={{
               width: `${width}px`,
               height: `${height}px`,
