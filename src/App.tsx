@@ -24,7 +24,7 @@ function App() {
         type="4x4"
       >
         <div style={{ width: "100vw", height: "100vh" }}>
-          <Canvas camera={{ position: [0, 0, 5], fov: 45 }} >
+          <Canvas camera={{ position: [0, 0, 6], fov: 45 }} >
             <Model onCameraReset={handleCameraReset} />
           </Canvas>
 
