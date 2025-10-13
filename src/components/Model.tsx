@@ -4,8 +4,6 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { Vector3, Mesh, MeshStandardMaterial } from 'three';
 import gsap from 'gsap';
 
-
-
 export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () => void) => void }) {
   const model = useGLTF('main.glb');
   const texture = useTexture('bake.png');
@@ -23,7 +21,6 @@ export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () 
             mesh.geometry.attributes['BakedUV']
           );
 
-
           mesh.material = new MeshStandardMaterial({
             map: texture,
           });
@@ -36,7 +33,6 @@ export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () 
     const close = camera.position.distanceTo(new Vector3(0, 0, 2)) < 0.01;
 
     if (close == true) {
-
       gsap.to(camera.position, {
         x: 0,
         y: 0,
@@ -53,13 +49,57 @@ export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () 
         ease: "power2.inOut"
       });
     }
-  }, [close, camera.position]);
+  }, [camera.position]);
 
   useEffect(() => {
     if (onCameraReset) {
       onCameraReset(handleCameraReset);
     }
   }, [onCameraReset, handleCameraReset]);
+
+  const animateButtonPress = useCallback((keyName: string) => {
+    const obj = model.scene.getObjectByName(keyName);
+
+    if (obj && (obj as Mesh).isMesh) {
+      const mesh = obj as Mesh;
+      const originalY = mesh.position.y;
+
+      // Press down
+      gsap.to(mesh.position, {
+        y: originalY - 0.01,
+        duration: 0.1,
+        ease: "power2.in",
+        onComplete: () => {
+          // Release back up
+          gsap.to(mesh.position, {
+            y: originalY,
+            duration: 0.1,
+            ease: "power2.out"
+          });
+        }
+      });
+    }
+  }, [model.scene]);
+
+  // Key press listener
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      let keyName = `key_${e.key.toLowerCase()}`;
+      if (keyName == "key_ ") {
+        keyName = "key_space";
+      }
+      //console.log("Key pressed:", e.key, "Looking for:", keyName);
+      animateButtonPress(keyName);
+
+
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [animateButtonPress]);
 
   return (
     <>
