@@ -63,11 +63,3 @@ const overlayStyle: React.CSSProperties = {
     zIndex: 9999,
     pointerEvents: "all",
 };
-
-const boxStyle: React.CSSProperties = {
-    textAlign: "center",
-    color: "#fff",
-    padding: "24px 36px",
-    borderRadius: 10,
-    background: "rgba(0, 0, 0, 0.5)",
-};
