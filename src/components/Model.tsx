@@ -1,14 +1,30 @@
-import { Html, Environment, OrbitControls, useGLTF, useTexture } from '@react-three/drei';
+import { Html, Environment, OrbitControls, useGLTF, useTexture, useProgress } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Vector3, Mesh, MeshStandardMaterial } from 'three';
 import gsap from 'gsap';
 
-export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () => void) => void }) {
+export default function Model({
+  onCameraReset,
+  onProgress,
+  onIframeMounted,
+  onIframeLoaded,
+}: {
+  onCameraReset?: (resetFn: () => void) => void;
+  onProgress?: (p: number) => void;
+  onIframeMounted?: () => void;
+  onIframeLoaded?: () => void;
+}) {
   const model = useGLTF('main.glb');
   const texture = useTexture('bake.png');
   const screen = model.scene.getObjectByName('Screen');
   const { camera } = useThree();
+
+  // report loading progress from drei hook (works inside <Canvas>)
+  const { progress } = useProgress();
+  useEffect(() => {
+    onProgress?.(Math.round(progress));
+  }, [progress, onProgress]);
 
   useMemo(() => {
     model.scene.traverse((child) => {
@@ -101,6 +117,17 @@ export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () 
     };
   }, [animateButtonPress]);
 
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const iframeMountedCalled = useRef(false);
+
+  // notify that iframe is mounted (start of iframe load)
+  useEffect(() => {
+    if (screen && iframeRef.current && !iframeMountedCalled.current) {
+      iframeMountedCalled.current = true;
+      onIframeMounted?.();
+    }
+  }, [screen, onIframeMounted]);
+
   return (
     <>
       <Environment preset="city" />
@@ -117,7 +144,7 @@ export default function Model({ onCameraReset }: { onCameraReset?: (resetFn: () 
             screen.position.z + 0.001,
           ]}
         >
-          <iframe src="https://os.chatzoudas.dev" />
+          <iframe ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
         </Html>
       )}
       <OrbitControls enablePan enableZoom enableRotate minDistance={2} />

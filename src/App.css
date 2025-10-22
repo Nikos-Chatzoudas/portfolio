@@ -84,3 +84,11 @@
   outline: 1px dotted #000000;
   outline-offset: -4px;
 }
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
