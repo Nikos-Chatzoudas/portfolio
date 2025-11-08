@@ -144,7 +144,7 @@ export default function Model({
             screen.position.z + 0.001,
           ]}
         >
-          <iframe ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
+          <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
         </Html>
       )}
       <OrbitControls enablePan enableZoom enableRotate minDistance={2} />

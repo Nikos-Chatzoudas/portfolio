@@ -102,6 +102,16 @@ function App() {
   const allDone = modelProgress >= 100 && iframeLoaded;
   const showLoader = !allDone;
 
+  // Add this useEffect to handle iframe display
+  useEffect(() => {
+    if (!showLoader) {
+      const iframe = document.querySelector('iframe.nodisplay');
+      if (iframe) {
+        iframe.classList.remove('nodisplay');
+      }
+    }
+  }, [showLoader]);
+
   return (
     <div>
       <AnimatedBackground
