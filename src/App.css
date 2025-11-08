@@ -70,7 +70,7 @@
   font-size: 11px; /* smaller text */
   line-height: 1;
   color: black;
-  font-family: "MS Sans Serif", Arial, sans-serif;
+
   cursor: pointer;
   position: relative;
   box-shadow: inset -1px -1px 0 #000000, inset 1px 1px 0 #ffffff,

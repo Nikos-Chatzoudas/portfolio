@@ -1,3 +1,4 @@
+import "98.css";
 interface ControllerProps {
     onReset: () => void | null;
     onPartyToggle: () => void;
