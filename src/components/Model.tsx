@@ -147,7 +147,12 @@ export default function Model({
           <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
         </Html>
       )}
-      <OrbitControls enablePan enableZoom enableRotate minDistance={2} />
+      <OrbitControls
+        enablePan={false}
+        enableZoom
+        enableRotate
+        minDistance={2}
+      />
     </>
   );
 }

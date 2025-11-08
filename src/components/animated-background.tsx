@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-
+import { useEffect, useState } from "react";
 import { Dithering } from "@paper-design/shaders-react";
 
 interface AnimatedBackgroundProps {
@@ -45,6 +45,10 @@ interface AnimatedBackgroundProps {
    * Children to render on top of the background
    */
   children?: React.ReactNode;
+  /**
+   * Whether to enable rainbow effect
+   */
+  rainbow?: boolean;
 }
 
 export function AnimatedBackground({
@@ -58,14 +62,42 @@ export function AnimatedBackground({
   scale = 1.13,
   className = "",
   children,
+  rainbow = false,
 }: AnimatedBackgroundProps) {
+  const [currentColor, setCurrentColor] = useState(colorFront);
+
+  useEffect(() => {
+    if (!rainbow) {
+      setCurrentColor(colorFront);
+      return;
+    }
+
+    const colors = [
+      '#FF0000', // Red
+      '#FF7F00', // Orange
+      '#FFFF00', // Yellow
+      '#00FF00', // Green
+      '#0000FF', // Blue
+      '#4B0082', // Indigo
+      '#9400D3'  // Violet
+    ];
+    let colorIndex = 0;
+
+    const interval = setInterval(() => {
+      colorIndex = (colorIndex + 1) % colors.length;
+      setCurrentColor(colors[colorIndex]);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [rainbow, colorFront]);
+
   return (
     <div className={`relative ${className}`}>
       {/* Fixed background layer */}
       <div className="fixed inset-0 z-0">
         <Dithering
           colorBack={colorBack}
-          colorFront={colorFront}
+          colorFront={currentColor}
           speed={speed}
           shape={shape}
           type={type}

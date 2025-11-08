@@ -51,6 +51,8 @@
 }
 .controller {
   position: fixed;
+  display: flex;
+  flex-direction: row;
   top: 0;
   left: 0;
 }
@@ -61,29 +63,22 @@
 .win98-button {
   background: #c0c0c0;
   border: none;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
-  padding: 4px 12px;
-  font-size: 11px;
+  align-items: center;
+  padding: 4px 6px; /* minimal padding */
+  font-size: 11px; /* smaller text */
+  line-height: 1;
   color: black;
   font-family: "MS Sans Serif", Arial, sans-serif;
   cursor: pointer;
   position: relative;
-
   box-shadow: inset -1px -1px 0 #000000, inset 1px 1px 0 #ffffff,
     inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+  min-width: auto;
+  min-height: auto;
 }
 
-.win98-button:active {
-  box-shadow: inset 1px 1px 0 #000000, inset -1px -1px 0 #ffffff,
-    inset 2px 2px 0 #808080, inset -2px -2px 0 #dfdfdf;
-  padding: 5px 11px 3px 13px;
-}
-
-.win98-button:focus {
-  outline: 1px dotted #000000;
-  outline-offset: -4px;
-}
 .col {
   display: flex;
   flex-direction: column;

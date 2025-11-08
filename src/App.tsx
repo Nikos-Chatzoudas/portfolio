@@ -11,9 +11,14 @@ import Loader from "./components/loader"; // new
 
 function App() {
   const [resetCamera, setResetCamera] = useState<(() => void)>(() => () => { });
+  const [isRainbowMode, setIsRainbowMode] = useState(false); // Add this line
 
   const handleCameraReset = useCallback((handler: () => void) => {
     setResetCamera(() => handler);
+  }, []);
+
+  const toggleRainbowMode = useCallback(() => {
+    setIsRainbowMode(prev => !prev);
   }, []);
 
   // raw progress states
@@ -117,9 +122,10 @@ function App() {
       <AnimatedBackground
         backgroundColor="#000000"
         colorFront="#0e1036"
-        speed={0.3}
+        speed={isRainbowMode ? 2 : 0.3} // Change speed based on party mode
         shape="warp"
         type="4x4"
+        rainbow={isRainbowMode}  // Pass the state here
       >
         {/* Loader overlay */}
         {showLoader && <Loader progress={displayProgress} />}
@@ -135,7 +141,11 @@ function App() {
           </Canvas>
 
         </div>
-        <Controller onReset={resetCamera} />
+        <Controller
+          onReset={resetCamera}
+          onPartyToggle={toggleRainbowMode}
+          isPartyMode={isRainbowMode}
+        />
       </AnimatedBackground>
     </div>
   );
