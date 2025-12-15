@@ -2,32 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" id="favicon" type="image/png" href="/favicon/1.png" />
+    <link rel="icon" id="favicon" type="image/webp" href="/favicon/1.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
     <title>Chatzoudas - Portfolio</title>
+    <meta
+      name="description"
+      content="Chatzoudas portfolio showcasing projects, skills, and ways to get in touch."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Chatzoudas" />
+    <meta
+      name="keywords"
+      content="Chatzoudas, portfolio, web developer, software developer, React, TypeScript, Vite, projects"
+    />
+
+    <!-- Social preview (Open Graph / Twitter) -->
+    <meta property="og:title" content="Chatzoudas - Portfolio" />
+    <meta
+      property="og:description"
+      content="Projects, skills, and contact information for Chatzoudas."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/favicon/1.webp" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Chatzoudas - Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Projects, skills, and contact information for Chatzoudas."
+    />
     <script>
-      (function () {
-        const frames = [
-          "/favicon/1.png",
-          "/favicon/2.png",
-          "/favicon/3.png",
-          "/favicon/4.png",
-          "/favicon/5.png",
-          "/favicon/6.png",
-          "/favicon/7.png",
-          "/favicon/8.png",
-          "/favicon/9.png",
-          "/favicon/10.png",
-        ];
+      (async function () {
+        const frames = Array.from(
+          { length: 10 },
+          (_, idx) => `/favicon/${idx + 1}.webp`
+        );
+
         let i = 0;
         let interval;
 
-        const updateIcon = () => {
+        const setIcon = (href) => {
           const link = document.getElementById("favicon");
-          if (link) {
-            link.href = frames[i];
-            i = (i + 1) % frames.length;
-          }
+          if (!link) return;
+          link.type = "image/webp";
+          link.href = href;
+        };
+
+        const updateMeta = (href) => {
+          const og = document.querySelector('meta[property="og:image"]');
+          if (og) og.setAttribute("content", href);
+        };
+
+        const updateIcon = () => {
+          setIcon(frames[i]);
+          updateMeta(frames[i]);
+          i = (i + 1) % frames.length;
         };
 
         const start = () => {
@@ -38,9 +68,13 @@
           clearInterval(interval);
           interval = null;
           i = 0;
-          const link = document.getElementById("favicon");
-          if (link) link.href = frames[0];
+          setIcon(frames[0]);
+          updateMeta(frames[0]);
         };
+
+        // Initialize immediately
+        setIcon(frames[0]);
+        updateMeta(frames[0]);
 
         if (!document.hidden) start();
 
