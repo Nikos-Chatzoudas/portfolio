@@ -13,13 +13,11 @@ function App() {
   const [resetCamera, setResetCamera] = useState<(() => void)>(() => () => { });
   const [isRainbowMode, setIsRainbowMode] = useState(false); // Add this line
 
-  // Responsive check
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
-
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobileDevice) {
+      window.location.href = "https://os.chatzoudas.dev";
+    }
   }, []);
 
   const handleCameraReset = useCallback((handler: () => void) => {
@@ -141,8 +139,7 @@ function App() {
 
         <div style={{ width: "100vw", height: "100vh" }}>
           <Canvas
-            camera={{ position: isMobile ? [0, 0, 10.5] : [0, 0, 6], fov: 45 }}
-            key={isMobile ? "mobile" : "desktop"}
+            camera={{ position: [0, 0, 6], fov: 45 }}
           >
             <Model
               onCameraReset={handleCameraReset}
