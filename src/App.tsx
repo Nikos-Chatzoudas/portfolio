@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobileDevice) {
-      window.location.href = "https://os.chatzoudas.dev";
+      window.location.href = "https://os.chatzoudas.dev/?mobile=true";
     }
   }, []);
 
