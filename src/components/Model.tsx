@@ -323,7 +323,7 @@ export default function Model({
           ]}
         >
           <div className="crt-frame">
-
+            <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
             {showEffects && <VhsOverlay className="vhs-overlay" />}
           </div>
         </Html>
