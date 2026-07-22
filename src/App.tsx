@@ -146,6 +146,7 @@ function App() {
               onProgress={(p) => setModelProgress(p)}
               onIframeMounted={() => setIframeMounted(true)}
               onIframeLoaded={() => setIframeLoaded(true)}
+              showEffects={!showLoader}
             />
           </Canvas>
 

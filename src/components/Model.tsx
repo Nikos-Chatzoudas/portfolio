@@ -10,11 +10,13 @@ export default function Model({
   onProgress,
   onIframeMounted,
   onIframeLoaded,
+  showEffects = true,
 }: {
   onCameraReset?: (resetFn: () => void) => void;
   onProgress?: (p: number) => void;
   onIframeMounted?: () => void;
   onIframeLoaded?: () => void;
+  showEffects?: boolean;
 }) {
   const model = useGLTF('main.glb');
   const screen = model.scene.getObjectByName('Screen');
@@ -322,7 +324,7 @@ export default function Model({
         >
           <div className="crt-frame">
             <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
-            <VhsOverlay className="vhs-overlay" />
+            {showEffects && <VhsOverlay className="vhs-overlay" />}
           </div>
         </Html>
       )}

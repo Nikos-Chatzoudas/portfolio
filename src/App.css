@@ -26,7 +26,6 @@
   user-select: none;
 }
 
-/* VHS / old CRT monitor overlay, scoped to the iframe frame only. Animated via WebGL shader in vhs-overlay.tsx */
 .vhs-overlay {
   position: absolute;
   inset: 0;

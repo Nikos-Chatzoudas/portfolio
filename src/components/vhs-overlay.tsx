@@ -24,28 +24,28 @@ const fragmentShader = `
 
     // fast rolling scanlines
     float scan = sin((uv.y * uResolution.y * 0.9) - uTime * 6.0);
-    float scanline = smoothstep(0.55, 1.0, scan) * 0.22;
+    float scanline = smoothstep(0.55, 1.0, scan) * 0.10;
 
     // slow drifting tracking-noise band
     float roll = fract(uv.y + uTime * 0.06);
-    float band = smoothstep(0.0, 0.02, roll) * smoothstep(0.08, 0.02, roll) * 0.18;
+    float band = smoothstep(0.0, 0.02, roll) * smoothstep(0.08, 0.02, roll) * 0.08;
 
     // animated grain
-    float grain = (random(uv * uResolution + uTime * 60.0) - 0.5) * 0.14;
+    float grain = (random(uv * uResolution + uTime * 60.0) - 0.5) * 0.06;
 
     // vignette
     float dist = distance(uv, vec2(0.5));
     float vignette = smoothstep(0.75, 0.3, dist);
 
-    // random flicker
-    float flicker = 0.92 + 0.08 * sin(uTime * 18.0) + 0.03 * random(vec2(uTime, 0.0));
+    // subtle flicker
+    float flicker = 0.96 + 0.04 * sin(uTime * 18.0) + 0.015 * random(vec2(uTime, 0.0));
 
-    float alpha = clamp((scanline + band + grain * 0.6 + (1.0 - vignette) * 0.55) * flicker, 0.0, 0.9);
+    float alpha = clamp((scanline + band + grain * 0.5 + (1.0 - vignette) * 0.3) * flicker, 0.0, 0.45);
 
     // shifting red/cyan chromatic tint
     vec3 tint = mix(vec3(1.0, 0.15, 0.35), vec3(0.15, 1.0, 1.0), sin(uTime * 0.4 + uv.x * 6.0) * 0.5 + 0.5);
 
-    gl_FragColor = vec4(tint * 0.5, alpha);
+    gl_FragColor = vec4(tint * 0.35, alpha);
   }
 `;
 
