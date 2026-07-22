@@ -261,7 +261,7 @@ export default function Model({
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(stickerObjs, true);
       if (intersects.length > 0) {
-        
+
       }
     };
 
@@ -319,7 +319,10 @@ export default function Model({
             screen.position.z + 0.001,
           ]}
         >
-          <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
+          <div className="crt-frame">
+            <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
+            <div className="vhs-overlay" />
+          </div>
         </Html>
       )}
       <OrbitControls
