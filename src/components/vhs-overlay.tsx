@@ -42,10 +42,24 @@ const fragmentShader = `
 
     float alpha = clamp((scanline + band + grain * 0.5 + (1.0 - vignette) * 0.3) * flicker, 0.0, 0.45);
 
-    // shifting red/cyan chromatic tint
-    vec3 tint = mix(vec3(1.0, 0.15, 0.35), vec3(0.15, 1.0, 1.0), sin(uTime * 0.4 + uv.x * 6.0) * 0.5 + 0.5);
+    // classic CRT/VHS RGB subpixel bleed: hue cycles red -> green -> blue -> red
+    // across the screen, with scanlines glowing white-hot like real phosphor
+    vec3 red = vec3(1.0, 0.1, 0.1);
+    vec3 green = vec3(0.1, 1.0, 0.2);
+    vec3 blue = vec3(0.1, 0.3, 1.0);
 
-    gl_FragColor = vec4(tint * 0.35, alpha);
+    float cyclePos = fract(uTime * 0.08 + uv.x * 0.5) * 3.0;
+    vec3 tint;
+    if (cyclePos < 1.0) {
+      tint = mix(red, green, cyclePos);
+    } else if (cyclePos < 2.0) {
+      tint = mix(green, blue, cyclePos - 1.0);
+    } else {
+      tint = mix(blue, red, cyclePos - 2.0);
+    }
+    tint = mix(tint, vec3(1.0), clamp(scanline * 2.2, 0.0, 1.0));
+
+    gl_FragColor = vec4(tint * 0.42, alpha);
   }
 `;
 
