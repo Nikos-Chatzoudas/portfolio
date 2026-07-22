@@ -3,6 +3,7 @@ import { useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useRef } from 'react';
 import { Vector3, Mesh, Raycaster, Vector2, MeshBasicMaterial, BackSide } from 'three';
 import gsap from 'gsap';
+import VhsOverlay from './vhs-overlay';
 
 export default function Model({
   onCameraReset,
@@ -321,7 +322,7 @@ export default function Model({
         >
           <div className="crt-frame">
             <iframe className='nodisplay' ref={iframeRef} src="https://os.chatzoudas.dev" onLoad={() => onIframeLoaded?.()} />
-            <div className="vhs-overlay" />
+            <VhsOverlay className="vhs-overlay" />
           </div>
         </Html>
       )}
