@@ -160,7 +160,7 @@ export default function Model({
 
     const stickerNames = ['Sticker_github', 'Sticker_linkedin', 'Sticker_mail'];
     const urlMap: Record<string, string> = {
-      Sticker_github: 'https://github.com/NickChatzoudas',
+      Sticker_github: 'https://github.com/chatzoudas',
       Sticker_linkedin: 'https://www.linkedin.com/in/nick-chatzoudas/',
       Sticker_mail: 'mailto:nikoschatzoudas@gmail.com',
     };
